@@ -2,5 +2,5 @@
 
 ## example
 
-TODO
+Resuelvo los parciales de objetos aqui.
 
