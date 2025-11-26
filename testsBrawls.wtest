@@ -1,0 +1,34 @@
+import brawls.*
+
+// Fixtures polimórficos para las clases de equivalencia
+object personajeConEstrategia inherits Personaje {
+    override method tieneEstrategia() = true
+    override method destreza() = 0
+}
+
+object personajeConMuchaDestreza inherits Personaje {
+    override method tieneEstrategia() = false
+    override method destreza() = 150   // > dificultad
+}
+
+object personajeSinEstrategiaNiDestreza inherits Personaje {
+    override method tieneEstrategia() = false
+    override method destreza() = 100   // == dificultad
+}
+
+describe "Misión individual - esSuperadaPor" {
+
+    const mision = new MisionIndividual(dificultadMision = 100)
+
+    test "personaje con estrategia supera la misión individual aunque no tenga destreza" {
+        assert.that(mision.esSuperadaPor(personajeConEstrategia))
+    }
+
+    test "personaje sin estrategia pero con destreza mayor a la dificultad supera la misión individual" {
+        assert.that(mision.esSuperadaPor(personajeConMuchaDestreza))
+    }
+
+    test "personaje sin estrategia y con destreza menor o igual a la dificultad no supera la misión individual" {
+        assert.notThat(mision.esSuperadaPor(personajeSinEstrategiaNiDestreza))
+    }
+}
